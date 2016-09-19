@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="Styles/jquery-ui.css" />
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/jquery-ui-1.11.1.js"></script>
+    <script>
+        $(function () {
+            $('#login').on('click', function () {
+                var jsonContent = {
+                    "ID": "4",
+                    "Name": "The Flash",
+                    "Email": "the.flash@xxxddd.com"
+                };
+                var user = $('#account').val();
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    data: jsonContent,
+                    url: 'api/Account/Login',
+                    success: function(data) {
+                        $('#result').text("Log in successfully! >>>" + data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        var rel = "Log in failed >>> " + textStatus.toString() + " >>> " + errorThrown;
+                        $('#result').text(rel);
+                    }
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <p>Log in.</p>
+    <p>Use a local account to log in.</p>
+    <div>
+        <label for="account">User Account</label>
+        <input id="account" type="text" />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" />
+    </div>
+    <button id="login">Log in</button>
+    <div id="result"></div>
+</body>
+</html>
